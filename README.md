@@ -14,8 +14,8 @@
 <p align="center">
   <a href="https://github.com/HawkonS/agenda-link/actions/workflows/checks.yml"><img src="https://github.com/HawkonS/agenda-link/actions/workflows/checks.yml/badge.svg?branch=main" alt="Checks" /></a>
   <a href="https://github.com/HawkonS/agenda-link/actions/workflows/security.yml"><img src="https://github.com/HawkonS/agenda-link/actions/workflows/security.yml/badge.svg?branch=main" alt="Security" /></a>
-  <a href="./LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-blue.svg" alt="License: Apache-2.0" /></a>
   <a href="https://github.com/HawkonS/agenda-link/actions/workflows/codeql-analysis.yml"><img src="https://github.com/HawkonS/agenda-link/actions/workflows/codeql-analysis.yml/badge.svg?branch=main" alt="CodeQL" /></a>
+  <a href="./LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-blue.svg" alt="License: Apache-2.0" /></a>
 </p>
 
 ## 简介
