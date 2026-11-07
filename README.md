@@ -15,6 +15,7 @@
   <a href="https://github.com/HawkonS/agenda-link/actions/workflows/checks.yml"><img src="https://github.com/HawkonS/agenda-link/actions/workflows/checks.yml/badge.svg?branch=main" alt="Checks" /></a>
   <a href="https://github.com/HawkonS/agenda-link/actions/workflows/security.yml"><img src="https://github.com/HawkonS/agenda-link/actions/workflows/security.yml/badge.svg?branch=main" alt="Security" /></a>
   <a href="./LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-blue.svg" alt="License: Apache-2.0" /></a>
+  <a href="https://github.com/HawkonS/agenda-link/actions/workflows/codeql-analysis.yml"><img src="https://github.com/HawkonS/agenda-link/actions/workflows/codeql-analysis.yml/badge.svg?branch=main" alt="CodeQL" /></a>
 </p>
 
 ## 简介
@@ -114,6 +115,7 @@ npm run test:e2e    # 临时实例端到端测试，需要本机 Chrome
 - 不要提交 `agenda-link.properties`、`data/`、`.runtime/`、`logs/` 和备份文件。
 - 连接密钥加密保存；更换 `auth.jwt-secret` 会导致已保存凭据无法解密，并使现有会话失效。
 - 生产环境使用 HTTPS，限制管理接口、备份目录和数据库文件的访问范围。
+- CI 包含 Semgrep 与 CodeQL 代码扫描。
 
 ## License
 

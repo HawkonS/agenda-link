@@ -15,6 +15,7 @@
   <a href="https://github.com/HawkonS/agenda-link/actions/workflows/checks.yml"><img src="https://github.com/HawkonS/agenda-link/actions/workflows/checks.yml/badge.svg?branch=main" alt="Checks" /></a>
   <a href="https://github.com/HawkonS/agenda-link/actions/workflows/security.yml"><img src="https://github.com/HawkonS/agenda-link/actions/workflows/security.yml/badge.svg?branch=main" alt="Security" /></a>
   <a href="./LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-blue.svg" alt="License: Apache-2.0" /></a>
+  <a href="https://github.com/HawkonS/agenda-link/actions/workflows/codeql-analysis.yml"><img src="https://github.com/HawkonS/agenda-link/actions/workflows/codeql-analysis.yml/badge.svg?branch=main" alt="CodeQL" /></a>
 </p>
 
 ## Overview
@@ -114,6 +115,7 @@ Check whether ports `15173` and `18480` are in use, and confirm Node.js is versi
 - Do not commit `agenda-link.properties`, `data/`, `.runtime/`, `logs/` or backups.
 - Connection secrets are encrypted; rotating `auth.jwt-secret` makes saved credentials unreadable and invalidates current sessions.
 - Use HTTPS in production and restrict access to administrative endpoints, backup directories and the database file.
+- CI includes Semgrep and CodeQL code scanning.
 
 ## License
 
