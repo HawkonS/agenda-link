@@ -26,33 +26,65 @@ npm run test:e2e
 
 ## Commit messages
 
-Use [Conventional Commits](https://www.conventionalcommits.org/):
+Use [Conventional Commits](https://www.conventionalcommits.org/) for every commit message and pull request title:
 
 ```text
 type(scope): summary
 ```
 
-- Write the summary in English as a short imperative sentence: `add`, `fix`, `remove`, `update`.
-- Keep it lower-case and do not end with a period.
-- A scope is required. Use the affected area, for example `web`, `api`, `auth`, `sync`, `meeting`, `calendar`, `tools`, `docs` or `repo`.
-- Write only one title line. Do not add a body or a second `-m`.
-- Keep one logical change in one commit. Avoid mixing unrelated refactors, fixes and documentation.
-- Mark an incompatible change with `!` before the colon, for example `feat(api)!: change the meeting payload`.
+- **English is required** for the entire title, including the scope and summary.
+- **A scope is required**. Start it with a lowercase English letter and use only lowercase English letters, digits, and hyphens.
+- **The entire commit message must be a single title line**. Do not add a body, footers, trailers, or a second `-m` argument.
+- **The complete title must be 72 characters or fewer**, including the type, scope, spaces, and punctuation.
+- Keep the type and scope lowercase. Start the summary with a lowercase imperative verb, such as `add`, `fix`, `remove`, `update`, or `document`.
+- Proper names and technical identifiers in the summary may retain their original capitalization, such as `Android`, `GitHub`, `SDK`, and `JAVA_HOME`.
+- Do not end the title with a period or whitespace, and do not use emoji.
+- Keep each commit focused on one logical change. Describe the actual change; avoid vague summaries such as `update code` or `fix bug`.
+- For an incompatible change, put `!` after the scope and before the colon: `type(scope)!: summary`.
+- Put context, issue references, validation details, and migration notes in the pull request description.
+- Apply the same rules to pull request titles and final squash-merge commit messages. When squash-merging, keep only the title and remove any automatically generated body or trailers.
 
-Common types:
+Use one of these types:
 
 | Type | Use for |
 | --- | --- |
-| `feat` | A user-visible feature |
-| `fix` | A bug or compatibility fix |
-| `refactor` | Code restructuring without changing behavior |
-| `perf` | Performance work |
+| `feat` | New user-visible functionality |
+| `fix` | Bug, regression, or compatibility fixes |
+| `refactor` | Code restructuring without behavior changes |
+| `ui` | Visual styling or interaction adjustments |
+| `perf` | Performance improvements |
 | `docs` | Documentation changes |
 | `test` | Test additions or updates |
-| `build` | Dependencies, packaging or build configuration |
+| `build` | Build configuration, dependencies, tooling, or packaging |
 | `ci` | CI workflows and automation |
 | `chore` | Maintenance that fits no other type |
 | `revert` | Reverting an earlier commit |
+
+Use `feat` for new functionality and `fix` for defects, including changes to the UI. Use `ui` for other visual or interaction adjustments.
+
+Preferred scopes:
+
+| Scope | Area |
+| --- | --- |
+| `web` | Frontend pages, components, forms, and state |
+| `api` | Backend endpoints, services, and request validation |
+| `auth` | Login, sessions, roles, and access control |
+| `sync` | Organization and user synchronization and matching |
+| `meeting` | Meeting booking, allocation, invitations, and cancellation |
+| `calendar` | Schedules, calendar integration, and event descriptions |
+| `pool` | Advanced meeting accounts and account pools |
+| `recording` | Recording links, synchronization, retention, and deletion |
+| `config` | Configuration loading and first-run defaults |
+| `db` | Database schemas, indexes, and migrations |
+| `logs` | Log statistics and operation records |
+| `tools` | Local startup, backup, upgrade, and maintenance scripts |
+| `deploy` | Docker, Nginx, systemd, and deployment configuration |
+| `build` | Build configuration, dependencies, tooling, and packaging |
+| `ci` | CI workflows and automation |
+| `docs` | README files and project documentation |
+| `repo` | Repository-level configuration and contribution guidelines |
+
+Prefer the scopes listed above. Use another concise scope only for a distinct area not covered by them, and keep it consistent. Tests should normally use the scope of the code they cover.
 
 Examples:
 
@@ -60,10 +92,11 @@ Examples:
 feat(meeting): add rescheduling for scheduled meetings
 fix(sync): skip disabling unactivated removed users
 fix(web): preserve booking scroll when switching platforms
-docs: simplify the bilingual README
+docs(repo): simplify the bilingual README
+feat(api)!: change the meeting payload
 ```
 
-Pull request titles should follow the same convention when the project uses squash merges. The repository commit-msg hook enforces the scope, English-only title and single-line rule.
+The existing [commit-msg hook](./.githooks/commit-msg) checks the title format, allowed types, length, and single-line rule. Enable the repository hooks with `npm run prepare`.
 
 ## Pull requests
 

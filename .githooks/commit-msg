@@ -1,11 +1,15 @@
 #!/bin/sh
 set -eu
 
+LC_ALL=C
+export LC_ALL
+
 message_file="$1"
 message=$(sed -n '1p' "$message_file")
 
-# type(scope)!: summary — scope is required, everything is one line.
-pattern='^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\([a-z0-9._/-]+\))(!)?: [^[:space:]].{0,100}$'
+# Shared convention: required lowercase scope and a lowercase summary verb.
+# Proper names and technical identifiers may retain capitals after that verb.
+pattern='^(feat|fix|refactor|ui|perf|docs|test|build|ci|chore|revert)\([a-z][a-z0-9-]*\)!?: [a-z][ -~]*$'
 
 if ! printf '%s\n' "$message" | grep -Eq "$pattern"; then
   cat >&2 <<'MSG'
@@ -14,18 +18,27 @@ Invalid commit message.
 Use Conventional Commits with a required scope, for example:
   feat(web): add meeting booking form
   fix(api): retry failed Feishu sync jobs
+  ui(web): adjust the booking form layout
   docs(repo): update local setup instructions
 MSG
   exit 1
 fi
 
-if printf '%s' "$message" | LC_ALL=C grep -q '[^ -~]'; then
-  echo "提交标题必须使用英文。" >&2
+if [ "${#message}" -gt 72 ]; then
+  echo "The complete commit title must be 72 characters or fewer." >&2
   exit 1
 fi
 
+case "$message" in
+  *[[:space:].])
+    echo "Commit titles must not end with a period or whitespace." >&2
+    exit 1
+    ;;
+esac
+
+# Ignore blank lines and Git's editor comments when checking for a body.
 body=$(sed '1d' "$message_file" | sed '/^[[:space:]]*$/d' | sed '/^#/d')
 if [ -n "$body" ]; then
-  echo "提交信息只允许一行标题，不写正文。" >&2
+  echo "Use one title line only; bodies, footers, and trailers are forbidden." >&2
   exit 1
 fi
