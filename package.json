@@ -1,0 +1,51 @@
+{
+  "name": "agenda-link",
+  "private": true,
+  "version": "0.1.0",
+  "description": "可扩展的议链会议日程协同平台",
+  "packageManager": "npm@10",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "overrides": {
+    "fastify": "^5.12.7"
+  },
+  "workspaces": [
+    "apps/server",
+    "apps/web"
+  ],
+  "scripts": {
+    "admin:reset-password": "bash tools/reset-admin-password.sh",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "audit:repository": "node tools/audit-repository.mjs",
+    "dev": "concurrently -k -n server,web -c blue,green \"npm:dev:server\" \"npm:dev:web\"",
+    "dev:server": "npm --workspace @agenda-link/server run dev",
+    "dev:web": "npm --workspace @agenda-link/web run dev",
+    "build": "npm run build:server && npm run build:web",
+    "build:server": "npm --workspace @agenda-link/server run build",
+    "build:web": "npm --workspace @agenda-link/web run build",
+    "check": "npm run lint && npm run typecheck && npm run test && npm run test:web && npm run build && npm run test:production",
+    "test:production": "node --test tools/test/*.test.mjs",
+    "test:e2e": "node tools/e2e.mjs",
+    "test": "npm --workspace @agenda-link/server run test",
+    "typecheck": "npm run typecheck:server && npm run typecheck:web",
+    "typecheck:server": "npm --workspace @agenda-link/server run typecheck",
+    "typecheck:web": "npm --workspace @agenda-link/web run typecheck",
+    "format": "prettier --write 'apps/**/src/**/*.{ts,tsx,css}' 'apps/**/test/*.{ts,tsx}' 'tools/*.{ts,mjs}'",
+    "prepare": "node tools/prepare.mjs",
+    "test:web": "npm --workspace @agenda-link/web run test"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.5",
+    "@playwright/test": "^1.64.1",
+    "concurrently": "^9.2.1",
+    "eslint": "^9.39.5",
+    "eslint-plugin-react-hooks": "^6.1.1",
+    "globals": "^15.15.0",
+    "prettier": "^3.9.10",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.72.1"
+  },
+  "license": "Apache-2.0"
+}

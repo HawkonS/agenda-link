@@ -1,0 +1,13 @@
+services:
+  agenda-link:
+    build:
+      context: ..
+      dockerfile: tools/Dockerfile
+    ports:
+      - "${AGENDA_LINK_WEB_PORT:-15173}:15173"
+    volumes:
+      - agenda-link-state:/state
+    restart: unless-stopped
+    stop_grace_period: 30s
+volumes:
+  agenda-link-state:

@@ -1,0 +1,31 @@
+#!/bin/sh
+set -eu
+
+message_file="$1"
+message=$(sed -n '1p' "$message_file")
+
+# type(scope)!: summary — scope is required, everything is one line.
+pattern='^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\([a-z0-9._/-]+\))(!)?: [^[:space:]].{0,100}$'
+
+if ! printf '%s\n' "$message" | grep -Eq "$pattern"; then
+  cat >&2 <<'MSG'
+Invalid commit message.
+
+Use Conventional Commits with a required scope, for example:
+  feat(web): add meeting booking form
+  fix(api): retry failed Feishu sync jobs
+  docs(repo): update local setup instructions
+MSG
+  exit 1
+fi
+
+if printf '%s' "$message" | LC_ALL=C grep -q '[^ -~]'; then
+  echo "提交标题必须使用英文。" >&2
+  exit 1
+fi
+
+body=$(sed '1d' "$message_file" | sed '/^[[:space:]]*$/d' | sed '/^#/d')
+if [ -n "$body" ]; then
+  echo "提交信息只允许一行标题，不写正文。" >&2
+  exit 1
+fi

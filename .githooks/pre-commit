@@ -1,0 +1,16 @@
+#!/bin/sh
+set -eu
+
+npm run audit:repository
+
+if [ "${AGENDA_LINK_SKIP_CHECKS:-}" = "1" ]; then
+  exit 0
+fi
+
+# Audit the actual commit index first, then keep its Git environment out of
+# checks that create and operate on independent temporary repositories.
+for git_variable in $(git rev-parse --local-env-vars); do
+  unset "$git_variable"
+done
+
+npm run check
