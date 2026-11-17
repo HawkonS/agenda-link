@@ -543,7 +543,11 @@ export class TencentAdapter {
     const q = new URLSearchParams({
       userid: account.accountId,
       meeting_id: meeting.externalMeetingId!,
-      start_time: String(Math.floor(Date.parse(meeting.startAt) / 1000)),
+      // A host may start cloud recording before the scheduled start time.
+      // Query one day before the booking so early recordings are not missed.
+      start_time: String(
+        Math.floor((Date.parse(meeting.startAt) - 86400000) / 1000),
+      ),
       end_time: String(
         Math.floor((Date.parse(meeting.endAt) + 86400000) / 1000),
       ),

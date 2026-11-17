@@ -134,6 +134,11 @@ test("Tencent cloud recordings: API contract, playback, permissions and deletion
           Number(url.searchParams.get("start_time")) <
           31 * 86400,
       );
+      assert.ok(
+        Number(url.searchParams.get("start_time")) <=
+          Math.floor(Date.parse(meeting.startAt) / 1000) - 86400,
+        "recording query includes recordings that start before the booking",
+      );
       const page = Number(url.searchParams.get("page"));
       return {
         total_page: state.pages.length,
